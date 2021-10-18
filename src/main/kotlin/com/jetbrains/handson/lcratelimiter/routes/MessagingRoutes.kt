@@ -7,8 +7,10 @@ import com.jetbrains.handson.lcratelimiter.interceptor.routeWithRateLimiter
 
 fun Route.messagingRouting(rateLimiter :RateLimiter) {
     routeWithRateLimiter(rateLimiter) {
-        get("/message") {
-            call.respond("Thanks, fuck you too.")
+        get("/thanks/{from}") {
+            val from = call.parameters["from"]
+
+            call.respond("Thanks, fuck you too. - $from")
         }
     }
 }

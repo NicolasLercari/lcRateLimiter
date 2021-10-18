@@ -34,10 +34,10 @@ class MessagingRouteTests {
 
     @Test
     fun testGetOneMessage() = withTestApplication({ registerMessagingRoutes(rateLimiterInstance) }) {
-        with(handleRequest(HttpMethod.Get, "/message") {
+        with(handleRequest(HttpMethod.Get, "/thanks/aName") {
             addHeader("userId", userId)
         }) {
-            assertEquals("Thanks, fuck you too.", response.content)
+            assertEquals("Thanks, fuck you too. - aName", response.content)
         }
     }
 
@@ -52,7 +52,7 @@ class MessagingRouteTests {
         }
 
         repeat(5) {
-            doRequestAndCheckResponse("/message", userId, "Thanks, fuck you too.")
+            doRequestAndCheckResponse("/thanks/aName", userId, "Thanks, fuck you too. - aName")
         }
     }
 
@@ -67,9 +67,9 @@ class MessagingRouteTests {
         }
 
         repeat(5) {
-            doRequestAndCheckResponse("/message", userId, "Thanks, fuck you too.")
+            doRequestAndCheckResponse("/thanks/aName", userId, "Thanks, fuck you too. - aName")
         }
-        doRequestAndCheckResponse("/message", userId, "Rate limited exceeded")
+        doRequestAndCheckResponse("/thanks/aName", userId, "Rate limited exceeded")
     }
 
     @Test
@@ -83,10 +83,10 @@ class MessagingRouteTests {
         }
 
         repeat(5) {
-            doRequestAndCheckResponse("/message", userId, "Thanks, fuck you too.")
+            doRequestAndCheckResponse("/thanks/aName", userId, "Thanks, fuck you too. - aName")
         }
 
         delayMockTimestamp()
-        doRequestAndCheckResponse("/message", userId, "Thanks, fuck you too.")
+        doRequestAndCheckResponse("/thanks/aName", userId, "Thanks, fuck you too. - aName")
     }
 }
