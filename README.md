@@ -7,7 +7,7 @@
 
 ## Manual Test
 
-    make GET http://localhost:8080/message 
+    make GET http://localhost:8080/thanks/:from 
 
     To need to add an userId (uuidv4) as a header to authenticate
 
